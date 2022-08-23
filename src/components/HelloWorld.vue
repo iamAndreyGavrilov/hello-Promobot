@@ -112,7 +112,6 @@
 </template>
 
 <script lang="ts">
-import { GetPromobotInstance } from "@/robot/robot-api";
 import { defineComponent } from "vue";
 
 interface HelloWorldData {
@@ -131,15 +130,14 @@ export default defineComponent({
       events: [],
     };
   },
-  async mounted() {
-    const api = await GetPromobotInstance();
-    api.dialogService.sayText(this.text);
+  mounted() {
+    window.RobotApi.dialogService.sayText(this.text);
 
-    api.dialogService.onRobotReplicStart(() => {
+    window.RobotApi.dialogService.onRobotReplicStart(() => {
       this.events.push("Робот начал говорить");
     });
 
-    api.dialogService.onRobotReplicFinish(() => {
+    window.RobotApi.dialogService.onRobotReplicFinish(() => {
       this.events.push("Робот закончил говорить");
     });
   },
