@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <p>{{ events }}</p>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
@@ -111,12 +112,36 @@
 </template>
 
 <script lang="ts">
+import { GetPromobotInstance } from "@/robot/robot-api";
 import { defineComponent } from "vue";
+
+interface HelloWorldData {
+  text: string;
+  events: string[];
+}
 
 export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
+  },
+  data(): HelloWorldData {
+    return {
+      text: "Hello Promobot",
+      events: [],
+    };
+  },
+  async mounted() {
+    const api = await GetPromobotInstance();
+    api.dialogService.sayText(this.text);
+
+    api.dialogService.onRobotReplicStart(() => {
+      this.events.push("Робот начал говорить");
+    });
+
+    api.dialogService.onRobotReplicFinish(() => {
+      this.events.push("Робот закончил говорить");
+    });
   },
 });
 </script>
