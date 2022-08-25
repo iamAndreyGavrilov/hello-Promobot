@@ -1,6 +1,5 @@
 <template>
   <div class="secret">
-    <img alt="картинка" src="" />
     <SecretPage />
   </div>
 </template>
