@@ -1,5 +1,8 @@
 <template>
   <div><h1>Secret dragon</h1></div>
+  <button v-show="!dragonImage" @click="this.dragonImage = true">
+    жмякни если ты воин дракона
+  </button>
   <button class="btn" v-show="dragonImage" @click="this.dragonImage = false">
     закрыть, а можно сказать "дракон уходи"
   </button>
